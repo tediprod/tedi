@@ -1,3 +1,23 @@
 {
-    
+  "name": "tedi",
+  "description": "This is great, kind of.",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tediprod/tedi.git"
+  },
+  "author": "Inna, Timtim, Denis, Idriss, Tiennou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tediprod/tedi/issues"
+  },
+  "homepage": "https://github.com/tediprod/tedi#readme"
 }
