@@ -1,0 +1,29 @@
+{
+  "name": "tedi",
+  "description": "This is great, kind of.",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.51",
+    "nodemon": "^1.11.0",
+    "ts-node": "^1.7.0",
+    "typescript": "^2.0.10"
+  },
+  "scripts": {
+    "start": "npm run build:live",
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tediprod/tedi.git"
+  },
+  "author": "Inna, Timtim, Denis, Idriss, Tiennou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tediprod/tedi/issues"
+  },
+  "homepage": "https://github.com/tediprod/tedi#readme"
+}
