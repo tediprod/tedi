@@ -1,0 +1,20 @@
+{
+    "location1": {
+        "id": "1",
+        "name": "kitchen",
+        "description": "The kitchen of Simplon",
+        "image": ""
+    },
+    "location2": {
+        "id": "2",
+        "name": "metro",
+        "description": "The metro in front of Simplon",
+        "image": ""
+    },
+    "location3": {
+        "id": "3",
+        "name": "main room",
+        "description": "The main room of Simplon",
+        "image": ""
+    }
+}
