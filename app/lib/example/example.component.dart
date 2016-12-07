@@ -1,5 +1,5 @@
 /**
- * Pour futures références, voici un exemple rapide d'implémentation de SVG avec Angular2.
+ * Pour future référence, voici un exemple rapide d'implémentation de SVG avec Angular2.
  * 
  * Quelques trucs à se souvenir :
  * 
