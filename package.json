@@ -25,7 +25,7 @@
   "scripts": {
     "start": "npm run build:live",
     "test": "mocha test",
-    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/server.ts"
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./server.ts"
   },
   "repository": {
     "type": "git",

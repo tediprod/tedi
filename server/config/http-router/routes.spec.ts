@@ -3,7 +3,7 @@ import { } from "jasmine";
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let fs = require('fs');
-let api = require("../../server.ts");
+let api = require("../../../server.ts");
 let should = chai.should();
 
 chai.use(chaiHttp);

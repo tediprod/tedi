@@ -1,3 +1,4 @@
 node_modules/*
-assets/.scss/*
 .vscode/*
+app/.pub/*
+app/pubspec.lock
