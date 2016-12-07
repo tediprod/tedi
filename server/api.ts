@@ -2,7 +2,7 @@ import * as http from "http";
 import * as express from "express";
 import * as socket from "socket.io";
 
-import { Router } from "./http-router/router";
+import { Router } from "./config/http-router/router";
 
 class Server {
     public api: express.Application;
@@ -36,8 +36,8 @@ class Server {
     }
 
     private config(): void {
-        // 8080 by default
-        this.port = process.env.PORT || 8080;
+        // 8000 by default
+        this.port = process.env.PORT || 8000;
     }
 
     private router(): void {

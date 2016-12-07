@@ -24,7 +24,7 @@ routes.get('/:id', function (req: express.Request, res: express.Response) {
 });
 
 function readFile(callback: any): void {
-    fs.readFile(__dirname + "/../../test.json", "utf8", function (err, data) {
+    fs.readFile(__dirname + "/../../../test.json", "utf8", function (err, data) {
         callback(err, data);
     });
 }
