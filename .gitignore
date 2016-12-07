@@ -2,3 +2,4 @@ node_modules/*
 .vscode/*
 app/.pub/*
 app/pubspec.lock
+app/.packages
