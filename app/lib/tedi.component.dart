@@ -2,9 +2,9 @@ import 'package:angular2/core.dart';
 
 import 'package:tedi/game.service.dart';
 import 'package:tedi/example/example.component.dart';
-import 'package:tedi/gameplay/services/player.service.dart';
-import 'package:tedi/gameplay/services/event.service.dart';
-import 'package:tedi/gameplay/services/card.service.dart';
+import 'package:tedi/services/player.service.dart';
+import 'package:tedi/services/event.service.dart';
+import 'package:tedi/services/card.service.dart';
 
 @Component(
   selector:"tedi",
