@@ -3,7 +3,7 @@
  * 
  * Quelques trucs à se souvenir :
  * 
- *    - Etant donné la nature du SVG qui n'accepte que des balises spécifiques (comme <circle></circle>), on est obligés d'utiliser des directives d'attribut (e.g. selector:"[example]" au lieu de selector: "example" dans votre @Component, ce qui donnera <g example></g> au lieu de <example></example> dans votre HTML)
+ *    - Etant donnée la nature du SVG qui n'accepte que des balises spécifiques (comme <circle></circle>), on est obligés d'utiliser des directives d'attribut (e.g. selector:"[example]" au lieu de selector: "example" dans votre @Component, ce qui donnera <g example></g> au lieu de <example></example> dans votre HTML)
  * 
  *    - Angular a besoin de savoir s'il traite du HTML ou du SVG. Si votre template ne commence pas par une balise <svg></svg> (Angular la reconnait automatiquement), il doit être spécificié qu'il s'agit de SVG (e.g. <svg:circle></svg:circle> au lieu de <circle></circle>)
  *    
@@ -12,12 +12,27 @@
  */
 
 import 'package:angular2/core.dart';
+import 'package:tedi/game.service.dart';
 
 @Component(
   selector: '[example]',
   templateUrl: 'example.component.html',
-  styleUrls: const ['example.component.css']
+  styleUrls: const ['example.component.css'],
+  providers: const [GameService]
 )
 class ExampleComponent {
   String myRadius = "50";
+  GameService gameService;
+
+  String gameTest;
+  String playerTest;
+  String eventTest;
+  String cardTest;
+
+  ExampleComponent(GameService this.gameService) {
+    this.gameTest = this.gameService.getGameTest();
+    this.playerTest = this.gameService.getPlayerService().getPlayerTest();
+    this.eventTest = this.gameService.getEventService().getTestString();
+    this.cardTest = this.gameService.getCardService().getTestString();
+  }
 }
