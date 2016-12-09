@@ -1,4 +1,5 @@
 import 'dart:js';
+import 'dart:html';
 
 class SocketIoClient {
   JsObject _io;
@@ -22,12 +23,12 @@ class SocketIoClient {
   emit(String eventName, [data]){
     if(data != null){
       if(data is Map || data is Iterable){
-        this._io.callMethod('on', [eventName, new JsObject.jsify(data)]);
+        this._io.callMethod('emit', [eventName, new JsObject.jsify(data)]);
       } else {
-        this._io.callMethod('on', [eventName, data]);
+        this._io.callMethod('emit', [eventName, data]);
       }
     } else {
-      this._io.callMethod('on', [eventName]);
+      this._io.callMethod('emit', [eventName]);
     }
   }
 }
