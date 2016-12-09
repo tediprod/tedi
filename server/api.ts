@@ -6,7 +6,7 @@ import * as socket from "socket.io";
 
 import {  Router } from "./config/http-router/router";
 
-import { SocketIoServer } from "./src/socket/socket";
+import { SocketIoServer } from "./src/socket/SocketIoServer";
 
 export class Server {
     public api: express.Application;

@@ -33,27 +33,29 @@ class TediComponent {
 
   TediComponent() {
     io.onConnect(() {
-      this.io.on('server test', (data) {
+      this.io.on('serverTestData', (data) {
+        window.console.error('Testing server sending data :');
         print(data["test"]);
-        this.io.emit('client test', {'test': "randomData"});
+        this.io.emit('testData', {
+          'test': "randomData",
+          'ralouf': 'la moulle',
+          'celine': 'yoyo'
+        });
       });
 
-      this.io.on('received client test', (data){
+      this.io.on('testDataReceived', (data){
+        window.console.warn('Testing server sending data :');
         print(data["test"]);
       });
 
-      this.io.onDisconnect(() {
-        this.hello = "disconnected";
-        print("disconnected");
+      this.io.on('allSocketsSent', (data){
+        window.console.warn('Getting all open sockets :');
+        window.console.log(data);
       });
     });
   }
 
   void getSockets(){
-      this.io.emit('get all sockets');
-
-      this.io.on('here they are', (data){
-        window.console.log(data);
-      });
+      this.io.emit('getAllSockets');
   }
 }
