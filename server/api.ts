@@ -2,12 +2,16 @@ import * as http from "http";
 import * as express from "express";
 import * as socket from "socket.io";
 
-import { Router } from "./config/http-router/router";
+// let socket = require('socket.io-client')('http://localhost:8000');
 
-class Server {
+import {  Router } from "./config/http-router/router";
+
+import { SocketIoServer } from "./src/socket/socket";
+
+export class Server {
     public api: express.Application;
     private server: http.Server;
-    private io: any;
+    private io: SocketIoServer;
 
     private port: number;
 
@@ -27,7 +31,7 @@ class Server {
 
         // Create server
         this.server = http.createServer(this.api);
-        
+
         // Set up websockets
         this.sockets();
 
@@ -46,7 +50,7 @@ class Server {
     }
 
     private sockets(): void {
-        this.io = socket(this.server);
+        this.io = new SocketIoServer(this.server);
     }
 
     private listen(): void {
@@ -59,10 +63,9 @@ class Server {
 
         // Success handler
         this.server.on("listening", () => {
-            console.log('==> Listening at http://localhost:%s.', this.port);            
+            console.log('==> Listening at http://localhost:%s.', this.port);
         });
     }
 }
 
-let server: any = Server.bootstrap();
-export = server['api'];
+let server: Server = Server.bootstrap();

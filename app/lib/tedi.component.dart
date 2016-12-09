@@ -1,11 +1,14 @@
+import 'dart:html';
 import 'package:angular2/core.dart';
 
-import 'package:tedi/game.service.dart';
+import 'package:tedi/services/game.service.dart';
+import 'package:tedi/services/socket.service.dart';
+
+import 'package:tedi/services/dep/player.service.dart';
+import 'package:tedi/services/dep/event.service.dart';
+import 'package:tedi/services/dep/card.service.dart';
+
 import 'package:tedi/example/example.component.dart';
-import 'package:tedi/services/player.service.dart';
-import 'package:tedi/services/event.service.dart';
-import 'package:tedi/services/card.service.dart';
-import 'package:tedi/socket.service.dart';
 
 @Component(
     selector: "tedi",
@@ -30,13 +33,27 @@ class TediComponent {
 
   TediComponent() {
     io.onConnect(() {
-      this.hello = "connected";
-      print("hello : " + this.hello);
+      this.io.on('server test', (data) {
+        print(data["test"]);
+        this.io.emit('client test', {'test': "randomData"});
+      });
 
-      io.onDisconnect((){
+      this.io.on('received client test', (data){
+        print(data["test"]);
+      });
+
+      this.io.onDisconnect(() {
         this.hello = "disconnected";
         print("disconnected");
       });
     });
+  }
+
+  void getSockets(){
+      this.io.emit('get all sockets');
+
+      this.io.on('here they are', (data){
+        window.console.log(data);
+      });
   }
 }

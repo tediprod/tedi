@@ -12,7 +12,7 @@
  */
 
 import 'package:angular2/core.dart';
-import 'package:tedi/game.service.dart';
+import 'package:tedi/services/game.service.dart';
 
 @Component(
   selector: '[example]',
