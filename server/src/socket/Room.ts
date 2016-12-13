@@ -3,7 +3,6 @@ import { Client } from './Client';
 
 export class Room {
     public static rooms: Array<Room> = [];
-    private _clients: Array<Client> = [];
     private _name: string;
 
     constructor(name: string) {
@@ -35,7 +34,6 @@ export class Room {
         let room = Room.findRoom(name);
         if(room){
             client.ioClient.join(room);
-            room._clients.push(client);
             console.log(`Successfully joined ${room.name}`);
             return {"status": "200", "message":`Successfully joined ${room.name}`, "data": room}
         } else {
@@ -46,10 +44,6 @@ export class Room {
 
     public get name(): string {
         return this._name;
-    }
-
-    public get clients(): Array<Client> {
-        return this._clients;
     }
     
     public set name(val: string) {

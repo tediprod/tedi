@@ -17,7 +17,7 @@ import 'package:tedi/services/game.service.dart';
 @Component(
   selector: '[example]',
   templateUrl: 'example.component.html',
-  styleUrls: const ['example.component.css'],
+  styleUrls: const ['example.style.css'],
   providers: const [GameService]
 )
 class ExampleComponent {

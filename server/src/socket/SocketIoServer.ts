@@ -22,7 +22,7 @@ export class SocketIoServer {
         let _client = this.client;
 
         io.on('connect', function (client: any) {
-            let roomName = "provisionary name";
+            let roomName = "Provisionary Room";
             
             _client = new Client(client, "Richard" + Client.getAllClients().length);
             // let room = Room.rooms[0];
@@ -43,18 +43,22 @@ export class SocketIoServer {
             }
 
             var chalk = require('chalk');
+            let room2 = _client.room;
 
             console.warn(chalk.red(`${_client.name}(${_client.ioClient.id}) is connected.`));
             console.log("Name : " + _client.name);
             console.log("Room : ");
-            console.log("   name : " + _client.room.name);
+            console.log("   name : " + room2.name);
             console.log("   clients : ");
-            for(let e = 0; e < _client.room.clients.length; e++){
-                let clientLoop = _client.room.clients[e];
+            for(let e = 0; e < io.in(room2.name).clients.length; e++){
+                let clientLoop = io.in(room2.name).clients();
                 console.log("       client " + e + " : ");
-                console.log("           id : " + clientLoop.ioClient.id);
+                console.log("           id : " + clientLoop.id);
                 console.log("           name : " + clientLoop.name);
+                console.log(clientLoop.clients()[e]);
             }
+
+
 
             for(let key in eventHandlers){
                 let handler = eventHandlers[key].handler;
@@ -62,9 +66,6 @@ export class SocketIoServer {
                     client.on(event, handler[event]);
                 }
             }
-
-            io.to(_client.ioClient.id).emit('serverTestData', { test: "hello client"});
-            setTimeout(function(){io.to(_client.ioClient.id).emit('mytest', {truc: "yoooooooo"})},1000);
         })
     }
 }

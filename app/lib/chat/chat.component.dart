@@ -7,18 +7,16 @@ import 'package:tedi/services/socket.service.dart';
 @Component(
     selector: 'chat',
     templateUrl: 'chat.component.html',
-    styleUrls: const ['chat.component.css'])
-class ChatComponent {
+    styleUrls: const ['chat.style.css'])
+class ChatComponent implements OnInit {
   List<Message> messages = [];
   SocketIoClient io;
   NgZone zone;
   Timer timer;
 
-  ChatComponent(@Inject(SocketIoClient) this.io, NgZone this.zone) {
-    _init();
-  }
+  ChatComponent(@Inject(SocketIoClient) this.io, NgZone this.zone);
 
-  void _init() {
+  void ngOnInit() {
     io.onConnect(() =>
         this.zone.run(() => messages.add(new Message.system("i_CONNECT"))));
 
