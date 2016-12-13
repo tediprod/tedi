@@ -22,7 +22,7 @@ export class SocketIoServer {
         let _client = this.client;
 
         io.on('connect', function (client: any) {
-            let roomName = "Provisionary Room";
+            let roomName = "Provisionary_Room";
             
             _client = new Client(client, "Richard" + Client.getAllClients().length);
             // let room = Room.rooms[0];
@@ -43,22 +43,16 @@ export class SocketIoServer {
             }
 
             var chalk = require('chalk');
-            let room2 = _client.room;
 
             console.warn(chalk.red(`${_client.name}(${_client.ioClient.id}) is connected.`));
             console.log("Name : " + _client.name);
+            console.log("Id : " + _client.ioClient.id);
             console.log("Room : ");
-            console.log("   name : " + room2.name);
+            console.log("   name : " + _client.room.name);
             console.log("   clients : ");
-            for(let e = 0; e < io.in(room2.name).clients.length; e++){
-                let clientLoop = io.in(room2.name).clients();
-                console.log("       client " + e + " : ");
-                console.log("           id : " + clientLoop.id);
-                console.log("           name : " + clientLoop.name);
-                console.log(clientLoop.clients()[e]);
-            }
-
-
+            io.of('/').in(_client.room.name).clients(function(err:any, clients:any) {
+                console.log(clients);
+            });
 
             for(let key in eventHandlers){
                 let handler = eventHandlers[key].handler;
