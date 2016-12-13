@@ -1,4 +1,4 @@
 # PROJET TEDI
 
-Simplon Mystery Murder
+Simplon Murder Mystery
 
