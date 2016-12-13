@@ -14,5 +14,4 @@ import 'package:tedi/board/board.component.dart';
   const Route(path: '/smm', name:'Game', component: BoardComponent)  
 ])
 class TediComponent {
-  
 }

@@ -2,16 +2,17 @@ nav {
   background-color: black;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-}
+  justify-content: space-around; }
 
 .navItems {
-  font-family: 'Molle', cursive;
+  font-family: 'Molle',cursive;
   color: #faff12;
   text-shadow: 1px 1px 3px white;
   font-size: 1.5em;
-  transition: all 2s ease-out;
-}
+  transition: all 2s ease-out; }
+  .navItems:hover {
+    color: #b40000;
+    text-shadow: 1px 1px 7px red; }
 
 .navItems:hover {
   color: #b40000;
