@@ -4,3 +4,4 @@ app/.pub/
 app/pubspec.lock
 app/.packages
 app/build/
+app/web/resources
