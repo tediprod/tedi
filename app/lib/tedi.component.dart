@@ -1,6 +1,9 @@
 import 'dart:html';
 import 'package:angular2/core.dart';
+import 'dart:async';
+import 'dart:convert';
 
+import 'package:http/browser_client.dart';
 import 'package:tedi/chat/chat.component.dart';
 import 'package:tedi/services/game.service.dart';
 import 'package:tedi/services/socket.service.dart';
@@ -15,7 +18,7 @@ import 'package:tedi/example/example.component.dart';
     selector: "tedi",
     templateUrl: "tedi.component.html",
     styleUrls: const [
-      "tedi.component.css"
+      "tedi.style.css"
     ],
     providers: const [
       SocketIoClient,
@@ -28,15 +31,52 @@ import 'package:tedi/example/example.component.dart';
       ExampleComponent,
       ChatComponent
     ])
-class TediComponent {
-  String hello = "Hello world !";
 
+class TediComponent implements OnInit{
   SocketIoClient io;
+  String pseudo = "ptitim";
+  String partyName;
+  NgZone zone;
+  Map listEnquete;
+  List suspects;
+  List locations;
+  List weapons;  
+  // BrowserClient _http;
 
-  TediComponent(SocketIoClient this.io) {
+  TediComponent(SocketIoClient this.io, NgZone this.zone) {
     _init();
+    getList();
   }
 
+  void ngOnInit(){
+    io.onConnect(() {
+      this.io.on('serverTestData', (data) {
+        window.console.error('Testing server sending data :');
+        print(data["test"]);
+        this.io.emit('testData', {
+          'test': "randomData",
+          'ralouf': 'la moulle',
+          'celine': 'yoyo'
+        });
+      });
+
+      this.io.on('testDataReceived', (data){
+        window.console.warn('Testing server sending data :');
+        print(data["test"]);
+      });
+
+      this.io.on('mytest', (data){
+        // this.zone.run(() => partyName = data["truc"] );
+        // print(partyName); 
+      });
+
+      this.io.on('allSocketsSent', (data){
+        window.console.warn('Getting all open sockets :');
+        window.console.log(data);
+      });
+    });
+  }
+      
   void _init() {
     this.io.on('serverTestData', (data) {
       window.console.warn('Testing server sending data :');
@@ -54,9 +94,31 @@ class TediComponent {
       window.console.warn('Getting all open sockets :');
       window.console.log(data);
     });
+
   }
 
-  void getSockets() {
-    this.io.emit('getAllSockets');
+  void getSockets(){
+      this.io.emit('getAllSockets');
+  } 
+
+  Future getList() async{
+    // var test = _http.get("localhost:8080/dataTest.json");
+    HttpRequest.getString("dataTest.json").then(onloaded);
+
+    // print(data);
+  }
+
+  onloaded(String response){
+    listEnquete = JSON.decode(response);
+    // print(listEnquete);
+    partyName = listEnquete["suspects"][0]["name"];
+    print("party :");
+    print(partyName);
+    suspects = listEnquete["suspects"];
+    locations = listEnquete["locations"];
+    weapons = listEnquete["weapons"];
   }
 }
+
+
+

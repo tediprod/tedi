@@ -1,8 +1,3 @@
-svg {
-    width: 500px;
-    height: 500px;
-}
-
 nav {
   background-color: black;
   display: flex;
@@ -23,3 +18,18 @@ nav {
   width: 60vw;
   height: 80vh; }
 
+.titreListEnquete {
+  color: gold;
+  background-color: black; }
+
+#enqueteList {
+  width: 40vw; }
+
+.board {
+  display: flex;
+  flex-direction: row; }
+
+li {
+  margin-left: 3vw; }
+
+/*# sourceMappingURL=tedi.style.css.map */
