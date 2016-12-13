@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/browser_client.dart';
+import 'package:tedi/chat/chat.component.dart';
 import 'package:tedi/services/game.service.dart';
 import 'package:tedi/services/socket.service.dart';
 
@@ -27,10 +28,12 @@ import 'package:tedi/example/example.component.dart';
       CardService
     ],
     directives: const [
-      ExampleComponent
+      ExampleComponent,
+      ChatComponent
     ])
 
 class TediComponent implements OnInit{
+  SocketIoClient io;
   String pseudo = "ptitim";
   String partyName;
   NgZone zone;
@@ -40,9 +43,8 @@ class TediComponent implements OnInit{
   List weapons;  
   // BrowserClient _http;
 
-  SocketIoClient io = new SocketIoClient("http://localhost:8000");
-
-  TediComponent(NgZone this.zone) {
+  TediComponent(SocketIoClient this.io, NgZone this.zone) {
+    _init();
     getList();
   }
 
@@ -72,6 +74,25 @@ class TediComponent implements OnInit{
         window.console.warn('Getting all open sockets :');
         window.console.log(data);
       });
+    });
+  }
+      
+  void _init() {
+    this.io.on('serverTestData', (data) {
+      window.console.warn('Testing server sending data :');
+      print(data["test"]);
+      this.io.emit('testData',
+          {'test': "randomData", 'ralouf': 'la moulle', 'celine': 'yoyo'});
+    });
+
+    this.io.on('testDataReceived', (data) {
+      window.console.warn('Testing server sending data :');
+      print(data["test"]);
+    });
+
+    this.io.on('allSocketsSent', (data) {
+      window.console.warn('Getting all open sockets :');
+      window.console.log(data);
     });
 
   }

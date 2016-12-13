@@ -2,18 +2,18 @@ import { SocketIoServer } from './SocketIoServer';
 
 export class Client {
     private static clients:Array<Client> = [];
-    private _socket: number;
+    private _ioClient: any;
     private _name: string;
 
-    constructor(socket: number, name: string){
-        this._socket = socket;
+    constructor(ioClient: number, name: string){
+        this._ioClient = ioClient;
         this._name = name;
 
         Client.clients.push(this);
     }
 
-    public get socket(): number{
-        return this._socket;
+    public get ioClient(): any{
+        return this._ioClient;
     }
     
     public get name() : string {

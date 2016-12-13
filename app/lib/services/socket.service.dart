@@ -1,11 +1,16 @@
+import 'package:angular2/core.dart';
 import 'dart:js';
-import 'dart:html';
 
+@Injectable()
+/**
+ * An injectable service used to communicate with the API via websockets.
+ */
 class SocketIoClient {
   JsObject _io;
 
-  SocketIoClient(String url){
-    _io = context.callMethod('io', [url]);
+  SocketIoClient(){
+    const URL = "http://localhost:8000";
+    _io = context.callMethod('io', [URL]);
   }
 
   onConnect(callback()){
@@ -20,7 +25,7 @@ class SocketIoClient {
     this._io.callMethod('on', [eventName, callback]);
   }
 
-  emit(String eventName, [data]){
+  emit(String eventName, [data]) {
     if(data != null){
       if(data is Map || data is Iterable){
         this._io.callMethod('emit', [eventName, new JsObject.jsify(data)]);
