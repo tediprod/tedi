@@ -1,0 +1,20 @@
+{
+    "suspects": [{"name": "Roger"},
+                 {"name": "timtim"},
+                 {"name": "richard"},
+                 {"name": "truc"},
+                 {"name": "suspect"},
+                 {"name": "meurtrier"}],
+
+    "locations": [{"name": "cuisine"},
+                  {"name": "metro"},
+                  {"name": "casino"},
+                  {"name": "Salle Principal"} ],
+
+    "weapons": [{"name": "thermos"},
+                {"name": "robot"},
+                {"name": "cure-dent"},
+                {"name": "le sac étonnamment lourd de inna"}
+                ]
+
+}

@@ -21,6 +21,8 @@ export class SocketIoServer {
 
         io.on('connect', function (client: any) {
             _client = new Client(client.id, "Richard" + Client.getAllClients().length);
+            // test envoie de prop
+            var _partyName: string = "bonjour";
 
             let eventHandlers: any = {
                 system: new System(io, _client)
@@ -35,7 +37,8 @@ export class SocketIoServer {
                 }
             }
 
-            io.to(_client.socket).emit('serverTestData', { test: "hello client" });
+            io.to(_client.socket).emit('serverTestData', { test: "hello client"});
+            setTimeout(function(){io.to(_client.socket).emit('mytest', {truc: "yoooooooo"})},1000);
         })
     }
 }

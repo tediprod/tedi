@@ -1,0 +1,54 @@
+$CouleurTexte : rgb(250,255,18);
+$CouleurFond : rgb(0,0,0);
+
+//////////////////////////////////////
+// font-family: 'Indie Flower', cursive;
+// font-family: 'Gloria Hallelujah', cursive;
+// font-family: 'Molle', cursive;
+// font-family: 'Pacifico', cursive;
+/////////////////////////////////////
+
+nav{
+    background-color: $CouleurFond;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.navItems{
+    font-family: 'Molle',cursive;
+    color: $CouleurTexte;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 1);
+    font-size: 1.5em;
+    transition: all 2s ease-out;
+
+    &:hover{
+        color: rgb(180,0,0);
+        text-shadow: 1px 1px 7px rgba(255, 0, 0, 1);
+    }
+}
+
+#board{
+    width: 60vw;
+    height: 80vh;
+}
+
+.titreListEnquete{
+    color: gold;
+    background-color: black;
+}
+
+#enqueteList{
+    width: 40vw;
+
+}
+
+.board{
+    display: flex;
+    flex-direction: row;
+
+}
+
+li{
+    margin-left: 3vw; 
+}

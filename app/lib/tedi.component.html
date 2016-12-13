@@ -1,6 +1,40 @@
-<h1>{{hello}}</h1>
-<a href="#" (click)="getSockets()">Get all sockets</a>
+
 <!-- Exemple d'implémentation SVG en angular2 ci-dessous -->
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g example></g>
-</svg>
+<nav>
+    <div class ="navItems" id="pseudo">
+        {{pseudo}}
+    </div>
+    <div class="navItems" id="partyName">
+        <span ng-if="pseudo"> {{partyName}} </span>
+    </div>
+    <div class="navItems" id="deconexion">
+        Deconnexion
+    </div>
+    <a href="#" class="navItems" (click)="getSockets()">Get all sockets</a>
+</nav>
+
+<div class="board">
+    <svg id="path" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 781.2 696" style="height: 90vh;">
+        <defs>
+            <style>.cls-1{fill:#c1272d;}</style>
+        </defs>
+        <path class="cls-1" d="M271,689V609h60V719H691V508H541v-9H371V386H481v92H662V386H781V24H451V54H270V85H120v61H59v60H0V689m260-90v80H10V216H69V156h61V95H280V64H461V34H771V376H652v92H491V376H361V509H511v9H681V709H341V599" transform="translate(0 -24)"/>
+    </svg>
+
+    <div id="enqueteList" ng-if="listEnquete">
+        <ul>
+            <p class="titreListEnquete">Suspects</p>
+            <li *ngFor="let obj of suspects">{{obj["name"]}} </li>
+        </ul>
+        <ul>
+            <p class="titreListEnquete">Locations</p>
+            <li *ngFor="let obj of locations">{{obj["name"]}} </li>
+        </ul>
+        <ul>
+            <p class="titreListEnquete">Weapons</p>
+            <li *ngFor="let obj of weapons">{{obj["name"]}} </li>
+        </ul>
+
+    </div>
+</div>
+<!---->
