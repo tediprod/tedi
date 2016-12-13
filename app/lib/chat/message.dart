@@ -14,7 +14,7 @@ class Message {
   // e - error
   static const Map<String, String> SYSTEM_MESSAGES = const {
     "i_CONNECT": "Welcome !",
-    "i_DISCONNECT": "Goodbye !",
+    "i_DISCONNECT": "You have been disconnected !",
     "e_ERROR": "An error occured while sending your message.",
   };
 
