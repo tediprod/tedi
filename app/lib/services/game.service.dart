@@ -1,8 +1,8 @@
 import 'package:angular2/core.dart';
 
-import 'package:tedi/services/dep/player.service.dart';
-import 'package:tedi/services/dep/event.service.dart';
-import 'package:tedi/services/dep/card.service.dart';
+import 'package:tedi/services/deps/player.service.dart';
+import 'package:tedi/services/deps/event.service.dart';
+import 'package:tedi/services/deps/card.service.dart';
 
 @Injectable()
 class GameService {
