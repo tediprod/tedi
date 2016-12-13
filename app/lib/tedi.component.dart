@@ -2,19 +2,21 @@ import 'dart:html';
 import 'package:angular2/core.dart';
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:http/browser_client.dart';
 import 'package:tedi/chat/chat.component.dart';
 import 'package:tedi/services/game.service.dart';
 import 'package:tedi/services/socket.service.dart';
-
 import 'package:tedi/services/dep/player.service.dart';
 import 'package:tedi/services/dep/event.service.dart';
 import 'package:tedi/services/dep/card.service.dart';
-
 import 'package:tedi/example/example.component.dart';
+import 'package:tedi/card/card.component.dart';
+
 
 @Component(
+
     selector: "tedi",
     templateUrl: "tedi.component.html",
     styleUrls: const [
@@ -29,9 +31,13 @@ import 'package:tedi/example/example.component.dart';
     ],
     directives: const [
       ExampleComponent,
-      ChatComponent
+      ChatComponent,
+      Card
     ])
+
+
 class TediComponent implements OnInit {
+  static const NUMBEROFCARDS = 4;
   SocketIoClient io;
   String pseudo = "ptitim";
   String partyName;
@@ -40,6 +46,7 @@ class TediComponent implements OnInit {
   List suspects;
   List locations;
   List weapons;
+  List playerDeck = [];
   // BrowserClient _http;
 
   TediComponent(SocketIoClient this.io, NgZone this.zone) {
@@ -89,5 +96,10 @@ class TediComponent implements OnInit {
     suspects = listEnquete["suspects"];
     locations = listEnquete["locations"];
     weapons = listEnquete["weapons"];
+  }
+
+
+  int testRandom(){
+    return new Random().nextInt(5);
   }
 }

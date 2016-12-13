@@ -27,10 +27,9 @@ nav{
         text-shadow: 1px 1px 7px rgba(255, 0, 0, 1);
     }
 }
-
-#board{
-    width: 60vw;
-    height: 80vh;
+#content-container{
+    display: flex;
+    flex-direction: row;
 }
 
 .titreListEnquete{
@@ -39,16 +38,17 @@ nav{
 }
 
 #enqueteList{
-    width: 40vw;
-
+    width: 18vw;
+    border: 0.6vmax ridge lightslategrey;
+    background-color: lightblue;
 }
 
-.board{
+.interface{
     display: flex;
     flex-direction: row;
-
 }
 
 li{
-    margin-left: 3vw; 
+    margin-left: 3vw;
+    list-style: none;
 }
