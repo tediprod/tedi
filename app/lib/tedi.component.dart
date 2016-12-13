@@ -1,6 +1,7 @@
 import 'dart:html';
 import 'package:angular2/core.dart';
 
+import 'package:tedi/chat/chat.component.dart';
 import 'package:tedi/services/game.service.dart';
 import 'package:tedi/services/socket.service.dart';
 
@@ -24,38 +25,38 @@ import 'package:tedi/example/example.component.dart';
       CardService
     ],
     directives: const [
-      ExampleComponent
+      ExampleComponent,
+      ChatComponent
     ])
 class TediComponent {
   String hello = "Hello world !";
 
-  SocketIoClient io = new SocketIoClient("http://localhost:8000");
+  SocketIoClient io;
 
-  TediComponent() {
-    io.onConnect(() {
-      this.io.on('serverTestData', (data) {
-        window.console.error('Testing server sending data :');
-        print(data["test"]);
-        this.io.emit('testData', {
-          'test': "randomData",
-          'ralouf': 'la moulle',
-          'celine': 'yoyo'
-        });
-      });
+  TediComponent(SocketIoClient this.io) {
+    _init();
+  }
 
-      this.io.on('testDataReceived', (data){
-        window.console.warn('Testing server sending data :');
-        print(data["test"]);
-      });
+  void _init() {
+    this.io.on('serverTestData', (data) {
+      window.console.warn('Testing server sending data :');
+      print(data["test"]);
+      this.io.emit('testData',
+          {'test': "randomData", 'ralouf': 'la moulle', 'celine': 'yoyo'});
+    });
 
-      this.io.on('allSocketsSent', (data){
-        window.console.warn('Getting all open sockets :');
-        window.console.log(data);
-      });
+    this.io.on('testDataReceived', (data) {
+      window.console.warn('Testing server sending data :');
+      print(data["test"]);
+    });
+
+    this.io.on('allSocketsSent', (data) {
+      window.console.warn('Getting all open sockets :');
+      window.console.log(data);
     });
   }
 
-  void getSockets(){
-      this.io.emit('getAllSockets');
+  void getSockets() {
+    this.io.emit('getAllSockets');
   }
 }

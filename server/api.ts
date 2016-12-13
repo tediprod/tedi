@@ -8,7 +8,7 @@ import {  Router } from "./config/http-router/router";
 
 import { SocketIoServer } from "./src/socket/SocketIoServer";
 
-export class Server {
+class Server {
     public api: express.Application;
     private server: http.Server;
     private io: SocketIoServer;
@@ -68,4 +68,4 @@ export class Server {
     }
 }
 
-let server: Server = Server.bootstrap();
+export let server: Server = Server.bootstrap();
