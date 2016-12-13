@@ -1,4 +1,4 @@
-export class AbstractHandler {
+export abstract class AbstractHandler {
     private _io: any;
     private _client: any;
     private _handler: Object;

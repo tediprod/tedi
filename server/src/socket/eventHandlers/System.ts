@@ -9,18 +9,18 @@ export class System extends AbstractHandler {
     }
 
     private conf(): Object {
-        function testSuccessResponse(data: any) {
+        function testSuccessResponse(data: any): void {
             console.log("test data received : ", data);
-            this.io.to(this.client.socket).emit('testDataReceived', { test: `I successfully retrieved your exhilarating data, ${this.client.name} !` })
+            this.io.to(this.client.ioClient.id).emit('testDataReceived', { test: `I successfully retrieved your exhilarating data, ${this.client.name} !` })
         }
 
-        function disconnectResponse() {
-            console.log(`${this.client.name}(${this.client.socket}) has disconnected.`);
+        function disconnectResponse(): void {
+            console.log(`${this.client.name}(${this.client.ioClient.id}) has disconnected.`);
             this.client = this.client.remove();
         }
 
-        function getAllSockets() {
-            this.io.to(this.client.socket).emit('allSocketsSent', { sockets: Client.getAllClients() })
+        function getAllSockets(): void {
+            this.io.to(this.client.ioClient.id).emit('allSocketsSent', { sockets: Client.getAllClients() })
         }
 
         return {

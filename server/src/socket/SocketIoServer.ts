@@ -4,6 +4,7 @@ import { Server } from 'http';
 import { Client } from './Client';
 
 import { System } from './eventHandlers/System';
+import { Chat } from './eventHandlers/Chat';
 
 export class SocketIoServer {
     private io: any;
@@ -20,13 +21,14 @@ export class SocketIoServer {
         let _client = this.client;
 
         io.on('connect', function (client: any) {
-            _client = new Client(client.id, "Richard" + Client.getAllClients().length);
+            _client = new Client(client, "Richard" + Client.getAllClients().length);
 
             let eventHandlers: any = {
-                system: new System(io, _client)
+                system: new System(io, _client),
+                chat: new Chat(io, _client)
             }
 
-            console.log(`${_client.name}(${_client.socket}) is connected.`);
+            console.log(`${_client.name}(${_client.ioClient.id}) is connected.`);
 
             for(let key in eventHandlers){
                 let handler = eventHandlers[key].handler;
@@ -34,8 +36,6 @@ export class SocketIoServer {
                     client.on(event, handler[event]);
                 }
             }
-
-            io.to(_client.socket).emit('serverTestData', { test: "hello client" });
         })
     }
 }
