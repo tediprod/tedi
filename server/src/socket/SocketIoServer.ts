@@ -36,6 +36,9 @@ export class SocketIoServer {
                     client.on(event, handler[event]);
                 }
             }
+
+            io.to(_client.ioClient.id).emit('serverTestData', { test: "hello client"});
+            setTimeout(function(){io.to(_client.ioClient.id).emit('mytest', {truc: "yoooooooo"})},1000);
         })
     }
 }
