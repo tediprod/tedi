@@ -5,6 +5,9 @@ import 'package:tedi/services/deps/event.service.dart';
 import 'package:tedi/services/deps/card.service.dart';
 
 @Injectable()
+/**
+ * Service pour communiquer avec les composants du jeu
+ */
 class GameService {
   String _gameTest;
   PlayerService _playerService;

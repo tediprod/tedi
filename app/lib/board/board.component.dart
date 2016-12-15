@@ -12,6 +12,8 @@ import 'package:tedi/services/deps/player.service.dart';
 import 'package:tedi/services/deps/event.service.dart';
 import 'package:tedi/services/deps/card.service.dart';
 
+import 'package:tedi/card/card.component.dart';
+
 import 'package:tedi/example/example.component.dart';
 
 @Component(
@@ -29,10 +31,12 @@ import 'package:tedi/example/example.component.dart';
     ],
     directives: const [
       ExampleComponent,
-      ChatComponent
+      ChatComponent,
+      Card
     ])
 class BoardComponent implements OnInit {
   SocketIoClient io;
+  GameService gameService;
   String pseudo = "ptitim";
   String partyName;
   NgZone zone;
@@ -42,8 +46,8 @@ class BoardComponent implements OnInit {
   List weapons;
   // BrowserClient _http;
 
-  BoardComponent(SocketIoClient this.io, NgZone this.zone) {
-    getList();
+  BoardComponent(SocketIoClient this.io, NgZone this.zone, GameService this.gameService) {
+    getClue();
   }
 
   void ngOnInit() {
@@ -72,22 +76,14 @@ class BoardComponent implements OnInit {
   void getSockets() {
     this.io.emit('getAllSockets');
   }
-
-  Future getList() async {
-    // var test = _http.get("localhost:8080/dataTest.json");
-    HttpRequest.getString("dataTest.json").then(onloaded);
-
-    // print(data);
+  Future getClue() async{
+    await gameService.getCardService().preloadCards();
+    suspects = gameService.getCardService().getSuspects();
+    print(suspects);
+    locations = gameService.getCardService().getLocations();
+    print(locations);
+    weapons = gameService.getCardService().getWeapons();
+    print(weapons);
   }
 
-  onloaded(String response) {
-    listEnquete = JSON.decode(response);
-    // print(listEnquete);
-    partyName = listEnquete["suspects"][0]["name"];
-    print("party :");
-    print(partyName);
-    suspects = listEnquete["suspects"];
-    locations = listEnquete["locations"];
-    weapons = listEnquete["weapons"];
-  }
 }
