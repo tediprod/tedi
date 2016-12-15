@@ -39,9 +39,7 @@ class CardService {
     return list;
   }
 
-  ///
   /// return a random list of suspects
-  /// 
   List getSuspects(){
     List suspects = randomPicker(allCards["suspects"], 3);
     return suspects;
@@ -57,11 +55,15 @@ class CardService {
     return weapons;
   }
 
+
   /// return a List of n elements radomly choose
   /// in the table(list)
-  /// exemple :
-  /// randomPicker([1,4,6,9,6,4,2] , 4 )
-  /// may return [1,6,9,4];
+  /// 
+  /// exemple.
+  ///   
+  ///   List randomPicker([1,2,3,4,5,6,7] , 4 );
+  ///   may return [1,6,2,4]
+  /// 
   /// return the given list if the second argument is greater than the list length
   List randomPicker(List tab, int number){
     if(number < tab.length){
@@ -77,4 +79,5 @@ class CardService {
       return tab;
     }
   }
+
 }

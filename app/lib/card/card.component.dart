@@ -13,13 +13,10 @@ import 'dart:async';
 */
 class Card{
   GameService gameService;
+  String text;
 
-  Card(@Inject(GameService) this.gameService ){
-    getCards();
+  Card(@Inject(GameService) this.gameService , String test){
+    text= test;
   }
 
-  Future getCards() async{
-   var test = await gameService.getCardService().getAllCard();
-    print("test "+ test.toString());
-  }
 }

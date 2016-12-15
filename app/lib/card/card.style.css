@@ -1,17 +1,18 @@
-.card{
-    height: "8vmax";
-    width: "3vmax";
-    border: 2px solid grey;
-}
+.card {
+  height: 13vmax;
+  max-width: 8vmax;
+  border: 2px solid grey;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
 
-.innerCard{
-    height: 90%;
-    width: 90%;
-    border: 2px solid darkred;
-}
+.innerCard {
+  height: 90%;
+  width: 90%;
+  border: 2px solid darkred; }
 
+.img {
+  height: 70%;
+  width: 100%; }
 
-.img{
-    height: 70%;
-    width: 100%;
-}
+/*# sourceMappingURL=card.style.css.map */

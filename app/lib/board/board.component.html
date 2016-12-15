@@ -28,8 +28,10 @@
                     <li *ngFor="let obj of weapons">{{obj["name"]}} </li>
                 </ul>
             </div>
-            <card>
-            </card>
+            <div class="deck" >
+                <card *ngFor="let card of suspects">
+                </card>
+            </div>
             <chat></chat>
         </div>
     </div>
