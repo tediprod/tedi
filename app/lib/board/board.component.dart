@@ -23,7 +23,6 @@ import 'package:tedi/example/example.component.dart';
       "board.style.css"
     ],
     providers: const [
-      SocketIoClient,
       GameService,
       PlayerService,
       EventService,
