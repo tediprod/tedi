@@ -1,7 +1,10 @@
 .card{
-    height: "8vmax";
-    width: "3vmax";
+    height: 13vmax;
+    max-width: 8vmax;
     border: 2px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .innerCard{
