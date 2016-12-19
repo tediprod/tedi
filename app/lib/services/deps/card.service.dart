@@ -21,23 +21,23 @@ class CardService {
     return this.test;
   }
 
-  Future preloadCards() async{
-    allCards = await HttpRequest.getString("dataTest.json").then(onloaded);
-  }
+  // Future preloadCards() async{
+  //   allCards = await HttpRequest.getString("dataTest.json").then(onloaded);
+  // }
 
-  Future getAllCard() async {
-    if(allCards != null ){
-      return allCards;
-    }else{
-      await preloadCards();
-      return allCards;
-    }
-  }
+  // Future getAllCard() async {
+  //   if(allCards != null ){
+  //     return allCards;
+  //   }else{
+  //     await preloadCards();
+  //     return allCards;
+  //   }
+  // }
 
-  onloaded(String response) {
-    Map list = JSON.decode(response);
-    return list;
-  }
+  // onloaded(String response) {
+  //   Map list = JSON.decode(response);
+  //   return list;
+  // }
 
   /// return a random list of suspects
   List getSuspects(){

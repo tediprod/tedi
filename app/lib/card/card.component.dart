@@ -8,15 +8,15 @@ import 'dart:async';
   styleUrls: const ["card.style.css"]
 )
 
-/* Class of card for the player
-*
+/**
+* Class of card for the player
 */
 class Card{
   GameService gameService;
-  String text;
+  String text = "test";
 
-  Card(@Inject(GameService) this.gameService , String test){
-    text= test;
+  Card(@Inject(GameService) this.gameService){
+
   }
 
 }

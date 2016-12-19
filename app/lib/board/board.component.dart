@@ -47,7 +47,7 @@ class BoardComponent implements OnInit {
   // BrowserClient _http;
 
   BoardComponent(SocketIoClient this.io, NgZone this.zone, GameService this.gameService) {
-    getClue();
+    // getClue();
   }
 
   void ngOnInit() {
@@ -63,10 +63,6 @@ class BoardComponent implements OnInit {
       print(data["test"]);
     });
 
-    this.io.on('mytest', (data) {
-      // this.zone.run(() => partyName = data["truc"] );
-      // print(partyName);
-    });
     this.io.on('allSocketsSent', (data) {
       window.console.warn('Getting all open sockets :');
       window.console.log(data);
@@ -76,14 +72,19 @@ class BoardComponent implements OnInit {
   void getSockets() {
     this.io.emit('getAllSockets');
   }
-  Future getClue() async{
-    await gameService.getCardService().preloadCards();
-    suspects = gameService.getCardService().getSuspects();
-    print(suspects);
-    locations = gameService.getCardService().getLocations();
-    print(locations);
-    weapons = gameService.getCardService().getWeapons();
-    print(weapons);
+
+  void getClues(){
+    this.io.emit('getClues');
   }
+
+  // Future getClue() async{
+  //   await gameService.getCardService().preloadCards();
+  //   suspects = gameService.getCardService().getSuspects();
+  //   print(suspects);
+  //   locations = gameService.getCardService().getLocations();
+  //   print(locations);
+  //   weapons = gameService.getCardService().getWeapons();
+  //   print(weapons);
+  // }
 
 }
