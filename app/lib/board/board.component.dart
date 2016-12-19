@@ -36,6 +36,7 @@ import 'package:tedi/example/example.component.dart';
     ])
 class BoardComponent implements OnInit {
   SocketIoClient io;
+  var room;
   GameService gameService;
   String pseudo = "ptitim";
   String partyName;
@@ -67,15 +68,17 @@ class BoardComponent implements OnInit {
       window.console.warn('Getting all open sockets :');
       window.console.log(data);
     });
+    this.io.on('connected',(data){
+      window.console.log("connected to room"+ data['room']);
+      room = data['room'];
+    });
   }
 
   void getSockets() {
     this.io.emit('getAllSockets');
   }
 
-  void getClues(){
-    this.io.emit('getClues');
-  }
+
 
   // Future getClue() async{
   //   await gameService.getCardService().preloadCards();
