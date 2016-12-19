@@ -21,7 +21,6 @@ import 'package:tedi/example/example.component.dart';
       "board.style.css"
     ],
     providers: const [
-      SocketIoClient,
       GameService,
       PlayerService,
       EventService,
@@ -42,7 +41,7 @@ class BoardComponent implements OnInit {
   List weapons;
   // BrowserClient _http;
 
-  BoardComponent(SocketIoClient this.io, NgZone this.zone) {
+  BoardComponent(@Inject(SocketIoClient) this.io, NgZone this.zone) {
     getList();
   }
 

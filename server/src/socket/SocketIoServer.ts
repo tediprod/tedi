@@ -22,9 +22,9 @@ export class SocketIoServer {
         let _client = this.client;
 
         io.on('connect', function (client: any) {
-            let roomName = "Provisionary_Room";
-            
-            _client = new Client(client, "Richard" + Client.getAllClients().length);
+            // let roomName = "Provisionary_Room";
+
+            // _client = new Client(client, "Richard" + Client.getAllClients().length);
             // let room = Room.rooms[0];
             // if(room){
             //     _client.joinRoom(Room.rooms[0].name)
@@ -34,32 +34,47 @@ export class SocketIoServer {
             //     _client.room = room;
             // }
 
-            let room = Room.createRoom(_client, roomName)['data'];
-            _client.room = room;
+            // let room = Room.createRoom(_client, roomName)['data'];
+            // _client.room = room;
 
-            let eventHandlers: any = {
-                system: new System(io, _client),
-                chat: new Chat(io, _client)
-            }
+            client.on("initRoom", function (data: any) {
+                let username = data.username;
+                let roomname = data.roomname;
 
-            var chalk = require('chalk');
+                _client = new Client(client, username);
 
-            console.warn(chalk.red(`${_client.name}(${_client.ioClient.id}) is connected.`));
-            console.log("Name : " + _client.name);
-            console.log("Id : " + _client.ioClient.id);
-            console.log("Room : ");
-            console.log("   name : " + _client.room.name);
-            console.log("   clients : ");
-            io.of('/').in(_client.room.name).clients(function(err:any, clients:any) {
-                console.log(clients);
-            });
+                let room = _client.initRoom(roomname);
 
-            for(let key in eventHandlers){
-                let handler = eventHandlers[key].handler;
-                for(let event in handler){
-                    client.on(event, handler[event]);
-                }
-            }
+                io.in(room.ioRoom.id).clients(function (err:any, clients:any) {
+                    console.log("clients : ", clients);
+                });
+
+                io.emit("connectionSuccessful", _client.room);
+            })
+
+            // var chalk = require('chalk');
+
+            // console.warn(chalk.red(`${_client.name}(${_client.ioClient.id}) is connected.`));
+            // console.log("Name : " + _client.name);
+            // console.log("Id : " + _client.ioClient.id);
+            // console.log("Room : ");
+            // console.log("   name : " + _client.room.name);
+            // console.log("   clients : ");
+            // io.of('/').in(_client.room.name).clients(function (err: any, clients: any) {
+            //     console.log(clients);
+            // });
+
+            // let eventHandlers: any = {
+            //     system: new System(io, _client),
+            //     chat: new Chat(io, _client)
+            // }
+
+            // for (let key in eventHandlers) {
+            //     let handler = eventHandlers[key].handler;
+            //     for (let event in handler) {
+            //         client.on(event, handler[event]);
+            //     }
+            // }
         })
     }
 }

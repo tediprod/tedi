@@ -14,9 +14,15 @@ export class Client {
         Client.clients.push(this);
     }
 
-    public joinRoom(id: string): Object {
-        return Room.joinRoom(this, id);
+    public initRoom(roomname: string): Room {
+        return Room.checkRoom(this, roomname);
     }
+
+    // public joinRoom(roomname: string): Object {
+    //     let room = Room.joinRoom(this, roomname);
+
+    //     return room;
+    // }
 
     public get ioClient(): any {
         return this._ioClient;

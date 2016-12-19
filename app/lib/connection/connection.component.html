@@ -1,0 +1,9 @@
+<h1>Join a room !</h1>
+
+<form (ngSubmit)="selectRoom(username.value, roomname.value)" #connectionForm="ngForm" id="connection-form">
+    <label for="username">Username</label>
+    <input type="text" placeholder="Choose a user name..." #username required>
+    <label for="roomname">Room</label>
+    <input type="text" placeholder="Enter room name to join or create..." #roomname required>
+    <button [disabled]="!connectionForm.form.valid" >Submit</button>
+</form>
