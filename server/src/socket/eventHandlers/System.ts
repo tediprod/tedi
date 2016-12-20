@@ -15,9 +15,7 @@ export class System extends AbstractHandler {
         }
 
         function disconnectResponse(): void {
-            console.log(`${this.client.name}(${this.client.ioClient.id}) has disconnected.`);
-            this.client.ioClient.leave(this.client.room.name);
-            this.client = this.client.remove();
+            this.client.disconnect();
         }
 
         function getAllSockets(): void {

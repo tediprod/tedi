@@ -1,4 +1,3 @@
-import { SocketIoServer } from './SocketIoServer';
 import { Client } from './Client';
 
 /**
@@ -48,6 +47,10 @@ export class Room {
         client.ioClient.join(room.name);
 
         return room;
+    }
+
+    public isEmpty() {
+        // if(io.)
     }
 
     public get name(): string {

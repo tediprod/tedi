@@ -12,14 +12,15 @@ class GameListComponent implements OnInit {
   List<String> rooms;
 
   GameListComponent(@Inject(SocketIoClient) this._io) {
-    _io.on("receiveGameList", (data){
+    _io.emit("askForGameList");
+
+    _io.on("gameList", (data){
       rooms = data["rooms"];
       window.console.log(rooms);
     });
   }
 
   void ngOnInit() {
-    _io.emit("askForGameList");
   }
 
   void getRooms() {

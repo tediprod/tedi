@@ -25,6 +25,13 @@ export class Client {
         return this.room;
     }
 
+    public disconnect(): void {
+        console.log(`${this.name}(${this.ioClient.id}) has disconnected.`);
+        this.ioClient.leave(this.room.name);
+        this.room.isEmpty();
+        this.remove();
+    }
+
     public get ioClient(): any {
         return this._ioClient;
     }
