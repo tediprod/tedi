@@ -28,20 +28,6 @@ export class SocketIoServer {
         let client = this._client;
 
         io.on('connect', function (socket: any) {
-            // let roomName = "Provisionary_Room";
-
-            // client = new Client(client, "Richard" + Client.getAllClients().length);
-            // let room = Room.rooms[0];
-            // if(room){
-            //     client.joinRoom(Room.rooms[0].name)
-            //     client.room = room;
-            // } else {
-            //     room = Room.createRoom(client, "testRoom")['data'];
-            //     client.room = room;
-            // }
-
-            // let room = Room.createRoom(client, roomName)['data'];
-            // client.room = room;
 
             socket.on("askForGameList", function () {
                 // Build a custom array of rooms to avoid infinite buffer recursion
@@ -90,13 +76,15 @@ export class SocketIoServer {
                     console.log(clients);
                 });
 
-                io.emit("connectionSuccessful", client.room);
+                socket.on('getData', function (data: any) {
+                    console.log('oui?');
+                    this._game.sendData();
+                });
+
+                // With all that said and done, tell client to go to game page
+                io.to(socket.id).emit("navigateTo", { routeName: "/Game" });
             });
 
-            socket.on('getData', function (data: any) {
-                console.log('oui?');
-                this._game.sendData();
-            });
 
             // var chalk = require('chalk');
 
@@ -121,8 +109,7 @@ export class SocketIoServer {
             //         client.on(event, handler[event]);
             //     }
             // }
-            // With all that said and done, tell client to go to game page
-            io.to(client.ioClient.id).emit("navigateTo", { routeName: "/Game" });
+
         })
     }
 }

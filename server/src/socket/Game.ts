@@ -5,7 +5,7 @@ var fs = require('fs');
 export class Game{
     private file: string;
     private data:any;
-    private client: any;
+    private client: Client;
 
     constructor(file: string, client: any){
         this.file = file;
