@@ -93,7 +93,7 @@ export class SocketIoServer {
                 io.emit("connectionSuccessful", client.room);
             });
 
-            client.ioClient.on('getData', function (data: any) {
+            socket.on('getData', function (data: any) {
                 console.log('oui?');
                 this._game.sendData();
             });
