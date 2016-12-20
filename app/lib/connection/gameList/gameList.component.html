@@ -1,0 +1,10 @@
+<h1>List of available games</h1>
+
+<div id="game-list-container">
+    <div *ngFor="let room of rooms">
+        <p>{{room["name"]}}</p>
+        <p>{{room["id"]}}</p>
+    </div>
+</div>
+
+<button (click)="getRooms()">Get rooms</button>

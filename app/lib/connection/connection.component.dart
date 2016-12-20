@@ -1,5 +1,5 @@
-import 'dart:html';
 import 'package:angular2/core.dart';
+import 'package:tedi/connection/gameList/gameList.component.dart';
 import 'package:tedi/services/socket.service.dart';
 
 import 'dart:convert';
@@ -7,22 +7,26 @@ import 'dart:convert';
 @Component(
     selector: 'connection',
     templateUrl: "connection.component.html",
-    styleUrls: const ["connection.style.css"])
+    styleUrls: const ["connection.style.css"],
+    directives: const [ GameListComponent ]
+)
 class ConnectionComponent implements OnInit {
-  SocketIoClient io;
+  SocketIoClient _io;
   String username;
   String roomname;
 
-  ConnectionComponent(@Inject(SocketIoClient) this.io);
+  ConnectionComponent(@Inject(SocketIoClient) this._io);
 
   void ngOnInit() {
-    io.on("connectionSuccessful", (data) => window.console.log(data));
+    
   }
 
   void selectRoom(username, roomname) {
     print("username : " + username);
     print("roomname : " + roomname);
 
-    io.emit("initRoom", {"username": username, "roomname": roomname});
+    _io.emit("initRoom", {"username": username, "roomname": roomname});
   }
+
+
 }

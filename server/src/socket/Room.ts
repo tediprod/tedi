@@ -1,6 +1,13 @@
 import { SocketIoServer } from './SocketIoServer';
 import { Client } from './Client';
 
+/**
+ * Room class.
+ * 
+ * All the methods return the relevant Room instance if it exists.
+ * 
+ * 
+ */
 export class Room {
     public static rooms: Array<Room> = [];
     private _name: string;
@@ -38,7 +45,7 @@ export class Room {
     }
 
     public joinRoom(client: Client, room: Room): Room {
-        client.ioClient.join(room.ioRoom.id);
+        client.ioClient.join(room.name);
 
         return room;
     }
