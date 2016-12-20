@@ -15,7 +15,9 @@ export class Client {
     }
 
     public initRoom(roomname: string): Room {
-        return Room.checkRoom(this, roomname);
+        let room = Room.checkRoom(this, roomname);
+        this.room = room;
+        return this.room;
     }
 
     // public joinRoom(roomname: string): Object {

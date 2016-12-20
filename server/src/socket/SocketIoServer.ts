@@ -45,36 +45,35 @@ export class SocketIoServer {
 
                 let room = _client.initRoom(roomname);
 
-                io.in(room.ioRoom.id).clients(function (err:any, clients:any) {
-                    console.log("clients : ", clients);
+                // Register socket events for client
+                let eventHandlers: any = {
+                    system: new System(io, _client),
+                    chat: new Chat(io, _client)
+                }
+
+                for (let key in eventHandlers) {
+                    let handler = eventHandlers[key].handler;
+                    for (let event in handler) {
+                        client.on(event, handler[event]);
+                    }
+                }
+
+                var chalk = require('chalk');
+
+                console.warn(chalk.red(`${_client.name}(${_client.ioClient.id}) is connected.`));
+                console.log("Name : " + _client.name);
+                console.log("Id : " + _client.ioClient.id);
+                console.log("Room : ");
+                console.log("   name : " + _client.room.name);
+                console.log("   clients : ");
+                io.of('/').in(_client.room.name).clients(function (err: any, clients: any) {
+                    console.log(clients);
                 });
 
-                io.emit("connectionSuccessful", _client.room);
+                // Tell client to go to game page
+                io.emit("navigateTo", { routeName: "/Game" });
+
             })
-
-            // var chalk = require('chalk');
-
-            // console.warn(chalk.red(`${_client.name}(${_client.ioClient.id}) is connected.`));
-            // console.log("Name : " + _client.name);
-            // console.log("Id : " + _client.ioClient.id);
-            // console.log("Room : ");
-            // console.log("   name : " + _client.room.name);
-            // console.log("   clients : ");
-            // io.of('/').in(_client.room.name).clients(function (err: any, clients: any) {
-            //     console.log(clients);
-            // });
-
-            // let eventHandlers: any = {
-            //     system: new System(io, _client),
-            //     chat: new Chat(io, _client)
-            // }
-
-            // for (let key in eventHandlers) {
-            //     let handler = eventHandlers[key].handler;
-            //     for (let event in handler) {
-            //         client.on(event, handler[event]);
-            //     }
-            // }
         })
     }
 }
