@@ -13,9 +13,18 @@ class GameService {
   PlayerService _playerService;
   EventService _eventService;
   CardService _cardService;
+  var gameData;
 
   GameService(PlayerService this._playerService, EventService this._eventService, CardService this._cardService) {
     this._gameTest = "This is the game test";
+  }
+
+  void setgameData(Object data){
+    gameData = data;
+  }
+
+  getgameData(){
+    return gameData;
   }
 
   String getGameTest(){

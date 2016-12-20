@@ -35,6 +35,7 @@ import 'package:tedi/example/example.component.dart';
     ])
 class BoardComponent implements OnInit {
   SocketIoClient io;
+  var room;
   GameService gameService;
   String pseudo = "ptitim";
   String partyName;
@@ -46,7 +47,7 @@ class BoardComponent implements OnInit {
   // BrowserClient _http;
 
   BoardComponent(SocketIoClient this.io, NgZone this.zone, GameService this.gameService) {
-    // getClue();
+    getData();
   }
 
   void ngOnInit() {
@@ -66,24 +67,24 @@ class BoardComponent implements OnInit {
       window.console.warn('Getting all open sockets :');
       window.console.log(data);
     });
+    this.io.on('connected',(data){
+      window.console.log("connected to room"+ data['room']);
+      room = data['room'];
+    });
+    this.io.on('clues', (data){
+      var tmp = JSON.decode(data);
+      suspects = tmp['suspects'];
+      weapons = tmp['weapons'];
+      zone.run(locations = tmp['locations']);
+    });
   }
 
   void getSockets() {
     this.io.emit('getAllSockets');
   }
 
-  void getClues(){
-    this.io.emit('getClues');
+  void getData(){
+    this.io.emit('getData');
   }
-
-  // Future getClue() async{
-  //   await gameService.getCardService().preloadCards();
-  //   suspects = gameService.getCardService().getSuspects();
-  //   print(suspects);
-  //   locations = gameService.getCardService().getLocations();
-  //   print(locations);
-  //   weapons = gameService.getCardService().getWeapons();
-  //   print(weapons);
-  // }
 
 }

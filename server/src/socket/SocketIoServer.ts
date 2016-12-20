@@ -6,6 +6,7 @@ import { Room } from './Room';
 
 import { System } from './eventHandlers/System';
 import { Chat } from './eventHandlers/Chat';
+import { Game } from './Game';
 
 /**
  * SocketIoServer class.
@@ -14,17 +15,17 @@ import { Chat } from './eventHandlers/Chat';
  */
 export class SocketIoServer {
     private _io: any;
-    private client: Client;
+    private _client: Client;
+    private _game: Game;
 
     constructor(server: Server) {
         this._io = socket(server);
 
         this.initializeSockets();
     }
-
     private initializeSockets(): void {
         let io = this._io;
-        let client = this.client;
+        let client = this._client;
 
         io.on('connect', function (socket: any) {
             // let roomName = "Provisionary_Room";
@@ -44,10 +45,10 @@ export class SocketIoServer {
 
             socket.on("askForGameList", function () {
                 // Build a custom array of rooms to avoid infinite buffer recursion
-                let rooms: Array<{name: string, id: string}> = [];
+                let rooms: Array<{ name: string, id: string }> = [];
 
-                Room.rooms.forEach(function(room){
-                    rooms.push({name: room.name, id: room.ioRoom.id});
+                Room.rooms.forEach(function (room) {
+                    rooms.push({ name: room.name, id: room.ioRoom.id });
                 })
                 socket.emit("gameList", { rooms: rooms })
             });
@@ -58,6 +59,10 @@ export class SocketIoServer {
 
                 client = new Client(socket, username);
 
+                if (!this._game)
+                    this._game = new Game('dataTest.json', client);
+
+                console.log("game : ", this._game);
                 let room = client.initRoom(roomname);
 
                 // Register socket events for client
@@ -85,9 +90,39 @@ export class SocketIoServer {
                     console.log(clients);
                 });
 
-                // With all that said and done, tell client to go to game page
-                io.to(client.ioClient.id).emit("navigateTo", { routeName: "/Game" });
-            })
+                io.emit("connectionSuccessful", client.room);
+            });
+
+            client.ioClient.on('getData', function (data: any) {
+                console.log('oui?');
+                this._game.sendData();
+            });
+
+            // var chalk = require('chalk');
+
+            // console.warn(chalk.red(`${_client.name}(${_client.ioClient.id}) is connected.`));
+            // console.log("Name : " + _client.name);
+            // console.log("Id : " + _client.ioClient.id);
+            // console.log("Room : ");
+            // console.log("   name : " + _client.room.name);
+            // console.log("   clients : ");
+            // io.of('/').in(_client.room.name).clients(function (err: any, clients: any) {
+            //     console.log(clients);
+            // });
+
+            // let eventHandlers: any = {
+            //     system: new System(io, _client),
+            //     chat: new Chat(io, _client)
+            // }
+
+            // for (let key in eventHandlers) {
+            //     let handler = eventHandlers[key].handler;
+            //     for (let event in handler) {
+            //         client.on(event, handler[event]);
+            //     }
+            // }
+            // With all that said and done, tell client to go to game page
+            io.to(client.ioClient.id).emit("navigateTo", { routeName: "/Game" });
         })
     }
 }
