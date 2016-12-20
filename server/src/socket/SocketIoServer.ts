@@ -37,6 +37,16 @@ export class SocketIoServer {
             // let room = Room.createRoom(_client, roomName)['data'];
             // _client.room = room;
 
+            client.on("askForGameList", function () {
+                // Build a custom array of rooms to avoid infinite buffer recursion
+                let rooms: Array<{name: string, id: string}> = [];
+
+                Room.rooms.forEach(function(room){
+                    rooms.push({name: room.name, id: room.ioRoom.id});
+                })
+                client.emit("receiveGameList", { rooms: rooms })
+            });
+
             client.on("initRoom", function (data: any) {
                 let username = data.username;
                 let roomname = data.roomname;
@@ -70,9 +80,8 @@ export class SocketIoServer {
                     console.log(clients);
                 });
 
-                // Tell client to go to game page
-                io.emit("navigateTo", { routeName: "/Game" });
-
+                // With all that said and done, tell client to go to game page
+                io.to(_client.ioClient.id).emit("navigateTo", { routeName: "/Game" });
             })
         })
     }

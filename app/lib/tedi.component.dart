@@ -15,9 +15,15 @@ import 'package:tedi/services/socket.service.dart';
   const Route(path: '/game', name: 'Game', component: BoardComponent),
   const Route(path: '/', name: 'Connection', component: ConnectionComponent, useAsDefault: true)
 ])
+/**
+ * Base component of the app.
+ * 
+ * Handles all routes. Most routes are websocket event-based, fired by the server.
+ */
 class TediComponent implements OnInit {
   SocketIoClient _io;
   Router _router;
+
   void ngOnInit() {
     _io.on("navigateTo", (data) {
       _router.navigate([data["routeName"], {}]);

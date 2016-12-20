@@ -1,6 +1,11 @@
 import { SocketIoServer } from './SocketIoServer';
 import { Room } from './Room';
 
+/**
+ * Client class.
+ * 
+ * Client instance of Socket.IO / name of the client / room the client is part of
+ */
 export class Client {
     private static clients: Array<Client> = [];
     private _ioClient: any;
@@ -19,12 +24,6 @@ export class Client {
         this.room = room;
         return this.room;
     }
-
-    // public joinRoom(roomname: string): Object {
-    //     let room = Room.joinRoom(this, roomname);
-
-    //     return room;
-    // }
 
     public get ioClient(): any {
         return this._ioClient;
