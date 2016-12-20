@@ -16,6 +16,8 @@ export class Game{
     loaded(error: Error, data: any){
         console.log("data :",JSON.parse(data.toString()));
         this.data = JSON.parse(data.toString());
-        this.client.ioClient.emit('clues', this.data);
+    }
+    sendData(){
+        this.client.ioClient.emit('clues', JSON.stringify(this.data));        
     }
 }

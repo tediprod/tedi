@@ -47,7 +47,7 @@ class BoardComponent implements OnInit {
   // BrowserClient _http;
 
   BoardComponent(SocketIoClient this.io, NgZone this.zone, GameService this.gameService) {
-    // getClue();
+    getData();
   }
 
   void ngOnInit() {
@@ -71,22 +71,20 @@ class BoardComponent implements OnInit {
       window.console.log("connected to room"+ data['room']);
       room = data['room'];
     });
+    this.io.on('clues', (data){
+      var tmp = JSON.decode(data);
+      suspects = tmp['suspects'];
+      weapons = tmp['weapons'];
+      zone.run(locations = tmp['locations']);
+    });
   }
 
   void getSockets() {
     this.io.emit('getAllSockets');
   }
 
-
-
-  // Future getClue() async{
-  //   await gameService.getCardService().preloadCards();
-  //   suspects = gameService.getCardService().getSuspects();
-  //   print(suspects);
-  //   locations = gameService.getCardService().getLocations();
-  //   print(locations);
-  //   weapons = gameService.getCardService().getWeapons();
-  //   print(weapons);
-  // }
+  void getData(){
+    this.io.emit('getData');
+  }
 
 }

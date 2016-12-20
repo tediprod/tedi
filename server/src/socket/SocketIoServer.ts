@@ -7,9 +7,12 @@ import { Room } from './Room';
 import { System } from './eventHandlers/System';
 import { Chat } from './eventHandlers/Chat';
 
+import { Game } from './Game';
+
 export class SocketIoServer {
     private io: any;
     private client: Client;
+    private game: Game;
 
     constructor(server: Server) {
         this.io = socket(server);
@@ -20,6 +23,7 @@ export class SocketIoServer {
     private defineSocketEvents(): void {
         let io = this.io;
         let _client = this.client;
+        
 
         io.on('connect', function (client: any) {
             // let roomName = "Provisionary_Room";
@@ -42,7 +46,10 @@ export class SocketIoServer {
                 let roomname = data.roomname;
 
                 _client = new Client(client, username);
-
+                if(!this.game)
+                    this.game = new Game('dataTest.json', _client);
+                
+                console.log("game : ", this.game);
                 let room = _client.initRoom(roomname);
 
                 io.in(room.ioRoom.id).clients(function (err:any, clients:any) {
@@ -50,7 +57,12 @@ export class SocketIoServer {
                 });
 
                 io.emit("connectionSuccessful", _client.room);
-            })
+            });
+
+            client.on('getData', function (data:any){
+                console.log('oui?');
+                this.game.sendData();
+            });
 
             // var chalk = require('chalk');
 
