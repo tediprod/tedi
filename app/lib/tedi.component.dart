@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
@@ -25,11 +24,11 @@ class TediComponent implements OnInit {
   SocketIoClient _io;
   Router _router;
 
+  TediComponent(SocketIoClient this._io, Router this._router);
+
   void ngOnInit() {
     _io.on("navigateTo", (data) {
       _router.navigate([data["routeName"], {}]);
     });
   }
-
-  TediComponent(SocketIoClient this._io, Router this._router);
 }

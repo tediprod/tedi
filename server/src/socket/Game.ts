@@ -1,5 +1,5 @@
 import { SocketIoServer } from './SocketIoServer';
-import { Client } from './Client';
+import { Client } from '../models/Client';
 var fs = require('fs');
 
 export class Game{
@@ -14,7 +14,7 @@ export class Game{
     }
 
     loaded(error: Error, data: any){
-        console.log("data :",JSON.parse(data.toString()));
+        // console.log("data :",JSON.parse(data.toString()));
         this.data = JSON.parse(data.toString());
     }
     sendData(){

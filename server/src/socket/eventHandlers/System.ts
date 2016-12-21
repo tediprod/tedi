@@ -1,5 +1,6 @@
 import { AbstractHandler } from './AbstractHandler';
-import { Client } from '../Client';
+import { Client } from '../../models/Client';
+import { Room } from '../../models/Room';
 
 export class System extends AbstractHandler {
     constructor(io: any, client: any) {
@@ -10,12 +11,16 @@ export class System extends AbstractHandler {
 
     private conf(): Object {
         function testSuccessResponse(data: any): void {
-            console.log("test data received : ", data);
+            // console.log("test data received : ", data);
             this.io.to(this.client.ioClient.id).emit('testDataReceived', { test: `I successfully retrieved your exhilarating data, ${this.client.name} !` })
         }
 
         function disconnectResponse(): void {
             this.client.disconnect();
+        }
+
+        function leaveRoom(): void {
+            this.client.leaveRoom();
         }
 
         function getAllSockets(): void {
@@ -25,7 +30,8 @@ export class System extends AbstractHandler {
         return {
             disconnect: disconnectResponse.bind(this),
             testData: testSuccessResponse.bind(this),
-            getAllSockets: getAllSockets.bind(this)
+            getAllSockets: getAllSockets.bind(this),
+            leaveRoom: leaveRoom.bind(this)
         }
     }
 }

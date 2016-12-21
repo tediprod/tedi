@@ -1,8 +1,8 @@
 import * as socket from 'socket.io';
 
 import { Server } from 'http';
-import { Client } from './Client';
-import { Room } from './Room';
+import { Client } from '../models/Client';
+import { Room } from '../models/Room';
 
 import { System } from './eventHandlers/System';
 import { Chat } from './eventHandlers/Chat';
@@ -31,11 +31,7 @@ export class SocketIoServer {
 
             socket.on("askForGameList", function () {
                 // Build a custom array of rooms to avoid infinite buffer recursion
-                let rooms: Array<{ name: string, id: string }> = [];
-
-                Room.rooms.forEach(function (room) {
-                    rooms.push({ name: room.name, id: room.ioRoom.id });
-                })
+                let rooms = Room.toArray();
                 socket.emit("gameList", { rooms: rooms })
             });
 
@@ -48,10 +44,11 @@ export class SocketIoServer {
                 if (!this._game)
                     this._game = new Game('dataTest.json', client);
 
-                console.log("game : ", this._game);
-                let room = client.initRoom(roomname);
+                // console.log("game : ", this._game);
+                let room = client.enterRoom(roomname);
 
                 // Register socket events for client
+                console.log("Now registering events...");
                 let eventHandlers: any = {
                     system: new System(io, client),
                     chat: new Chat(io, client)
@@ -60,7 +57,12 @@ export class SocketIoServer {
                 for (let key in eventHandlers) {
                     let handler = eventHandlers[key].handler;
                     for (let event in handler) {
-                        socket.on(event, handler[event]);
+                        if(socket._events[event] === undefined) {
+                            console.log("Registering " + event);
+                            socket.on(event, handler[event]);
+                        } else {
+                            console.log(event + " is already registered.");
+                        }
                     }
                 }
 
@@ -77,38 +79,15 @@ export class SocketIoServer {
                 });
 
                 socket.on('getData', function (data: any) {
-                    console.log('oui?');
+                    // console.log('oui?');
                     this._game.sendData();
                 });
 
                 // With all that said and done, tell client to go to game page
                 io.to(socket.id).emit("navigateTo", { routeName: "/Game" });
+                let rooms = Room.toArray();
+                socket.broadcast.emit("gameList", { rooms: rooms })
             });
-
-
-            // var chalk = require('chalk');
-
-            // console.warn(chalk.red(`${_client.name}(${_client.ioClient.id}) is connected.`));
-            // console.log("Name : " + _client.name);
-            // console.log("Id : " + _client.ioClient.id);
-            // console.log("Room : ");
-            // console.log("   name : " + _client.room.name);
-            // console.log("   clients : ");
-            // io.of('/').in(_client.room.name).clients(function (err: any, clients: any) {
-            //     console.log(clients);
-            // });
-
-            // let eventHandlers: any = {
-            //     system: new System(io, _client),
-            //     chat: new Chat(io, _client)
-            // }
-
-            // for (let key in eventHandlers) {
-            //     let handler = eventHandlers[key].handler;
-            //     for (let event in handler) {
-            //         client.on(event, handler[event]);
-            //     }
-            // }
 
         })
     }

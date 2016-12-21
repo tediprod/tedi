@@ -1,6 +1,8 @@
+import { Client } from '../../models/Client';
+
 export abstract class AbstractHandler {
     private _io: any;
-    private _client: any;
+    private _client: Client;
     private _handler: Object;
 
     constructor(io: any, client: any) {

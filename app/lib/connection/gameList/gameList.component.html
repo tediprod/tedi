@@ -1,10 +1,14 @@
 <h1>List of available games</h1>
 
 <div id="game-list-container">
-    <div *ngFor="let room of rooms">
+    <div [hidden]="noRooms" *ngFor="let room of rooms">
         <p>{{room["name"]}}</p>
         <p>{{room["id"]}}</p>
+        <p>Players : {{room["clientsCount"]}}</p>
+    </div>
+    <div [hidden]="!noRooms">
+        <p>No game available</p>
     </div>
 </div>
 
-<button (click)="getRooms()">Get rooms</button>
+<button (click)="refresh()">Force refresh</button>

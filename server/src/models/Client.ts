@@ -1,4 +1,4 @@
-import { SocketIoServer } from './SocketIoServer';
+import { SocketIoServer } from '../socket/SocketIoServer';
 import { Room } from './Room';
 
 /**
@@ -19,17 +19,32 @@ export class Client {
         Client.clients.push(this);
     }
 
-    public initRoom(roomname: string): Room {
-        let room = Room.checkRoom(this, roomname);
+    public enterRoom(roomname: string): Room {
+        let room = Room.initRoom(this, roomname);
         this.room = room;
         return this.room;
     }
 
+    public leaveRoom(): void {
+        let _this = this;
+        _this.room.leaveRoom(_this);
+        _this.room.isEmpty().then(function (bool) {
+            if (bool) {
+                _this.room.remove();
+            };
+
+            let rooms = Room.toArray();
+
+            _this.ioClient.server.emit("gameList", { rooms: rooms })
+
+            console.log(`${_this.name}(${_this.ioClient.id}) has disconnected.`);
+            _this.remove();
+        })
+    }
+
     public disconnect(): void {
-        console.log(`${this.name}(${this.ioClient.id}) has disconnected.`);
-        this.ioClient.leave(this.room.name);
-        this.room.isEmpty();
-        this.remove();
+        console.log("this is disconnect");
+        this.leaveRoom();
     }
 
     public get ioClient(): any {

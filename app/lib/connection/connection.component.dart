@@ -2,8 +2,6 @@ import 'package:angular2/core.dart';
 import 'package:tedi/connection/gameList/gameList.component.dart';
 import 'package:tedi/services/socket.service.dart';
 
-import 'dart:convert';
-
 @Component(
     selector: 'connection',
     templateUrl: "connection.component.html",
@@ -18,7 +16,8 @@ class ConnectionComponent implements OnInit {
   ConnectionComponent(@Inject(SocketIoClient) this._io);
 
   void ngOnInit() {
-    
+    print("hello");
+    _io.emit("leaveRoom");
   }
 
   void selectRoom(username, roomname) {
