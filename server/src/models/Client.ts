@@ -28,7 +28,7 @@ export class Client {
     public leaveRoom(): void {
         let _this = this;
         _this.room.leaveRoom(_this);
-        _this.room.isEmpty().then(function (bool) {
+        _this.room.isEmpty().then(function (bool:boolean) {
             if (bool) {
                 _this.room.remove();
             };
