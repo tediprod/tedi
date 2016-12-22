@@ -75,7 +75,7 @@ class BoardComponent implements OnInit {
       var tmp = JSON.decode(data);
       suspects = tmp['suspects'];
       weapons = tmp['weapons'];
-      zone.run(locations = tmp['locations']);
+      zone.run(() => locations = tmp['locations']);
     });
   }
 
