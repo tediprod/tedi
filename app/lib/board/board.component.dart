@@ -77,6 +77,7 @@ class BoardComponent implements OnInit {
       weapons = tmp['weapons'];
       zone.run(() => locations = tmp['locations']);
     });
+    this.io.on('initClient',(data)=> zone.run(() => pseudo = data['pseudo']) ); 
   }
 
   void getSockets() {

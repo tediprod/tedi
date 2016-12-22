@@ -85,6 +85,7 @@ export class SocketIoServer {
 
                 // With all that said and done, tell client to go to game page
                 io.to(socket.id).emit("navigateTo", { routeName: "/Game" });
+                io.to(socket.id).emit('initClient', { pseudo: username });
                 let rooms = Room.toArray();
                 socket.broadcast.emit("gameList", { rooms: rooms })
             });

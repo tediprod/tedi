@@ -5,9 +5,9 @@
         <p>{{message.body}}</p>
     </div>
 </div>
-<form (ngSubmit)="sendMessage(author.value, body.value)" #messageForm="ngForm" class="new-message-form">
+<form (ngSubmit)="sendMessage(pseudo, body.value)" #messageForm="ngForm" class="new-message-form">
     <label for="author">Author</label>
-    <input ([ngModel])="author" ngControl="author" #author type="text" placeholder="Tell us who you are..." required>
+    <input ([ngModel])="author" ngControl="author" #author type="text" placeholder="Tell us who you are..." style="display: none">
     <label for="body">Message body</label>
     <input ([ngModel])="body" ngControl="body" #body type="text" placeholder="Write your message..." required>
     <button type="submit" [disabled]="!messageForm.form.valid">Send</button>

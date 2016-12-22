@@ -13,6 +13,7 @@ class ChatComponent implements OnInit {
   SocketIoClient io;
   NgZone zone;
   Timer timer;
+  String pseudo;
 
   ChatComponent(@Inject(SocketIoClient) this.io, NgZone this.zone);
 
@@ -35,6 +36,7 @@ class ChatComponent implements OnInit {
       this.zone.run(() => this.messages.add(message));
       timer.cancel();
     });
+    io.on('initClient', (data)=> zone.run(() => pseudo = data['pseudo']) ); 
   }
 
   void sendMessage(author, body) {
