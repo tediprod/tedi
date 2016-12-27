@@ -1,14 +1,12 @@
 import 'dart:html';
 import 'package:angular2/core.dart';
 import 'package:tedi/services/socket.service.dart';
-import 'package:tedi/connection/connection.component.dart';
 import 'package:tedi/services/game.service.dart';
 
 @Component(
     selector: 'game-list',
     templateUrl: "./gameList.component.html",
     styleUrls: const ['./gameList.style.css'],
-    providers: const [ConnectionComponent]
     )
 
 class GameListComponent implements OnInit {
@@ -16,7 +14,6 @@ class GameListComponent implements OnInit {
   NgZone _zone;
   List<String> rooms;
   String _username;
-  GameService _gameService;
 
   bool noRooms;
 
