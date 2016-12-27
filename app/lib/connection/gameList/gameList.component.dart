@@ -1,18 +1,20 @@
 import 'dart:html';
 import 'package:angular2/core.dart';
+import 'package:tedi/services/game.service.dart';
 import 'package:tedi/services/socket.service.dart';
 
 @Component(
     selector: 'game-list',
     templateUrl: "./gameList.component.html",
     styleUrls: const ['./gameList.style.css'])
-class GameListComponent implements OnInit {
+class GameListComponent {
   SocketIoClient _io;
+  GameService _gameService;
   NgZone _zone;
   List<String> rooms;
   bool noRooms;
 
-  GameListComponent(@Inject(SocketIoClient) this._io, NgZone this._zone) {
+  GameListComponent(@Inject(SocketIoClient) this._io, NgZone this._zone, GameService this._gameService) {
     _io.emit("askForGameList");
 
     _io.on("gameList", (data) {
@@ -28,13 +30,12 @@ class GameListComponent implements OnInit {
     });
   }
 
-  void ngOnInit() {}
-
   void refresh() {
     _io.emit("askForGameList");
   }
 
   void joinRoom(String roomname){
-    _io.emit("initRoom", {"username": "tiennou", "roomname": roomname});
+    String username = _gameService.getPlayerService().getUsername();
+    _io.emit("initRoom", {"username": username, "roomname": roomname});
   }
 }
