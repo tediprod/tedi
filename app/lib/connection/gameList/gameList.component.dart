@@ -4,21 +4,20 @@ import 'package:tedi/services/socket.service.dart';
 import 'package:tedi/services/game.service.dart';
 
 @Component(
-    selector: 'game-list',
-    templateUrl: "./gameList.component.html",
-    styleUrls: const ['./gameList.style.css'],
-    )
-
+  selector: 'game-list',
+  templateUrl: "./gameList.component.html",
+  styleUrls: const ['./gameList.style.css'],
+)
 class GameListComponent implements OnInit {
   SocketIoClient _io;
+  GameService _gameService;
   NgZone _zone;
   List<String> rooms;
-  String _username;
 
   bool noRooms;
 
-  GameListComponent(@Inject(SocketIoClient) this._io,@Inject(GameService) _gameService , NgZone this._zone) {
-    _username = _gameService.getPlayerService().getUsername();
+  GameListComponent(@Inject(SocketIoClient) this._io,
+      @Inject(GameService) _gameService, NgZone this._zone) {
     _io.emit("askForGameList");
 
     _io.on("gameList", (data) {
@@ -40,7 +39,8 @@ class GameListComponent implements OnInit {
     _io.emit("askForGameList");
   }
 
-  void joinRoom(String roomname){
-    _io.emit("initRoom", {"username": _username, "roomname": roomname});
+  void joinRoom(String roomname) {
+    String username = _gameService.getPlayerService().getUsername();
+    _io.emit("initRoom", {"username": username, "roomname": roomname});
   }
 }
