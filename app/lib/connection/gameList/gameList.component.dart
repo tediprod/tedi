@@ -2,7 +2,6 @@ import 'dart:html';
 import 'package:angular2/core.dart';
 import 'package:tedi/services/game.service.dart';
 import 'package:tedi/services/socket.service.dart';
-import 'package:tedi/services/game.service.dart';
 
 @Component(
     selector: 'game-list',
