@@ -5,3 +5,4 @@ app/pubspec.lock
 app/.packages
 app/build/
 app/web/resources
+npm-debug.log

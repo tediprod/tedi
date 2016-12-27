@@ -37,8 +37,7 @@ export class Client {
 
             _this.ioClient.server.emit("gameList", { rooms: rooms })
 
-            console.log(`${_this.name}(${_this.ioClient.id}) has disconnected.`);
-            _this.remove();
+            console.log(`${_this.name}(${_this.ioClient.id}) has left the room.`);
         })
     }
 

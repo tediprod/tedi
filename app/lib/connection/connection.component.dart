@@ -16,7 +16,7 @@ class ConnectionComponent implements OnInit {
   String username;
   String roomname;
 
-  ConnectionComponent(@Inject(SocketIoClient) this._io, @Inject(GameService) this._gameService) {
+  ConnectionComponent(@Inject(SocketIoClient) this._io, GameService this._gameService) {
     authenticated = _gameService.getPlayerService().isAuthenticated();
     username = _gameService.getPlayerService().getUsername();
   }

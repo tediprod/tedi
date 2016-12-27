@@ -13,18 +13,36 @@ class Message {
   // w - warn
   // e - error
   static const Map<String, String> SYSTEM_MESSAGES = const {
-    "i_CONNECT": "Welcome !",
-    "i_DISCONNECT": "You have been disconnected !",
+    "i_CONNECT": "Welcome ${AUTHOR} !",
+    "i_DISCONNECT": "${AUTHOR} disconnected !",
+    "i_PLAYERLEFT": "${AUTHOR} has left the game.",
+    "i_PLAYERJOINED": "${AUTHOR} has joined the game.",
     "e_ERROR": "An error occured while sending your message.",
   };
+
+  static const String AUTHOR = "%author%";
 
   String author;
   String body;
 
   Message(this.author, this.body);
 
-  Message.system(messageId) {
+  Message.system(String messageId, [String user]) {
     author = "SYSTEM";
-    body = SYSTEM_MESSAGES[messageId];
+    body = sysMessageBuilder(messageId, user);
+  }
+
+  String sysMessageBuilder(String messageId, [String user]){
+    String message = SYSTEM_MESSAGES[messageId];
+
+    if(message.contains(AUTHOR)) {
+      if(user == null){
+        user = "User";
+      }
+
+      message = message.replaceAll(AUTHOR, user);
+    }
+
+    return message;
   }
 }

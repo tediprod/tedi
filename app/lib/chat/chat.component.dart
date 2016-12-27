@@ -34,9 +34,13 @@ class ChatComponent implements OnInit {
     io.on("sendMessageSuccess", (data) {
       Message message = new Message(data["author"], data["body"]);
       this.zone.run(() => this.messages.add(message));
-      timer.cancel();
+      if(timer != null) timer.cancel();
     });
     io.on('initClient', (data)=> zone.run(() => pseudo = data['pseudo']) ); 
+
+    io.on('playerJoin', (data) => zone.run(() => this.messages.add(new Message.system("i_PLAYERJOINED", data['user']))));
+
+    io.on('playerLeft', (data) => zone.run(() => this.messages.add(new Message.system("i_PLAYERLEFT", data['user']))));
   }
 
   void sendMessage(author, body) {

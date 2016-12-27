@@ -47,6 +47,8 @@ export class SocketIoServer {
                 // console.log("game : ", this._game);
                 let room = client.enterRoom(roomname);
 
+                client.ioClient.to(client.room.name).emit("playerJoin", {user: client.name})
+
                 // Register socket events for client
                 console.log("Now registering events...");
                 let eventHandlers: any = {

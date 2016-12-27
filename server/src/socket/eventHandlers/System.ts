@@ -20,6 +20,7 @@ export class System extends AbstractHandler {
         }
 
         function leaveRoom(): void {
+            this.client.ioClient.to(this.client.room.name).emit("playerLeft", {user: this.client.name});
             this.client.leaveRoom();
         }
 
