@@ -2,6 +2,7 @@ import 'dart:html';
 import 'package:angular2/core.dart';
 import 'package:tedi/services/game.service.dart';
 import 'package:tedi/services/socket.service.dart';
+import 'package:tedi/services/game.service.dart';
 
 @Component(
     selector: 'game-list',
@@ -12,6 +13,7 @@ class GameListComponent {
   GameService _gameService;
   NgZone _zone;
   List<String> rooms;
+
   bool noRooms;
 
   GameListComponent(@Inject(SocketIoClient) this._io, NgZone this._zone, GameService this._gameService) {

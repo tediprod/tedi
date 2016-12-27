@@ -1,6 +1,5 @@
 import 'package:angular2/core.dart';
 import 'package:tedi/services/game.service.dart';
-import 'dart:async';
 
 @Component(
   selector: "card",
@@ -15,6 +14,6 @@ class Card{
   GameService gameService;
   String text = "test";
 
-  Card(@Inject(GameService) this.gameService);
+  Card(@Inject(GameService) gameService);
 
 }
