@@ -15,8 +15,6 @@ class Card{
   GameService gameService;
   String text = "test";
 
-  Card(@Inject(GameService) this.gameService){
-
-  }
+  Card(@Inject(GameService) this.gameService);
 
 }

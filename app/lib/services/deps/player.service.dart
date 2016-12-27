@@ -2,13 +2,23 @@ import 'package:angular2/core.dart';
 
 @Injectable()
 class PlayerService {
-  String playerTest;
+  bool _authenticated = false;
+  String _username;
 
-  PlayerService() {
-    this.playerTest = "This is the player test";
+  PlayerService();
+
+  PlayerService authenticate(String username) {
+    _username = username;
+    _authenticated = true;
+
+    return this;
   }
 
-  String getPlayerTest(){
-    return this.playerTest;
+  String getUsername() {
+    return _username;
+  }
+
+  bool isAuthenticated() {
+    return _authenticated;
   }
 }

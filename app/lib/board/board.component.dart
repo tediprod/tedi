@@ -3,18 +3,11 @@ import 'package:angular2/core.dart';
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:http/browser_client.dart';
+import 'package:tedi/card/card.component.dart';
 import 'package:tedi/chat/chat.component.dart';
+import 'package:tedi/example/example.component.dart';
 import 'package:tedi/services/game.service.dart';
 import 'package:tedi/services/socket.service.dart';
-
-import 'package:tedi/services/deps/player.service.dart';
-import 'package:tedi/services/deps/event.service.dart';
-import 'package:tedi/services/deps/card.service.dart';
-
-import 'package:tedi/card/card.component.dart';
-
-import 'package:tedi/example/example.component.dart';
 
 @Component(
     selector: "board",
@@ -22,17 +15,11 @@ import 'package:tedi/example/example.component.dart';
     styleUrls: const [
       "board.style.css"
     ],
-    providers: const [
-      GameService,
-      PlayerService,
-      EventService,
-      CardService
-    ],
     directives: const [
       ExampleComponent,
       ChatComponent,
       Card
-    ])
+])
 class BoardComponent implements OnInit {
   SocketIoClient io;
   var room;

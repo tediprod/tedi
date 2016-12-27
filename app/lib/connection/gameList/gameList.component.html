@@ -2,7 +2,7 @@
 
 <div id="game-list-container">
     <div [hidden]="noRooms" *ngFor="let room of rooms">
-        <p>{{room["name"]}}</p>
+        <a (click)="joinRoom(room['name'])">{{room["name"]}}</a>
         <p>{{room["id"]}}</p>
         <p>Players : {{room["clientsCount"]}}</p>
     </div>

@@ -33,4 +33,8 @@ class GameListComponent implements OnInit {
   void refresh() {
     _io.emit("askForGameList");
   }
+
+  void joinRoom(String roomname){
+    _io.emit("initRoom", {"username": "tiennou", "roomname": roomname});
+  }
 }
