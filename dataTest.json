@@ -4,17 +4,29 @@
                  {"name": "richard"},
                  {"name": "truc"},
                  {"name": "suspect"},
-                 {"name": "meurtrier"}],
+                 {"name": "meurtrier"},
+                 {"name": "tiennou"},
+                 {"name": "inna"},
+                 {"name": "denis"},
+                 {"name": "oualid"}],
 
     "locations": [{"name": "cuisine"},
                   {"name": "metro"},
                   {"name": "casino"},
-                  {"name": "Salle Principal"} ],
+                  {"name": "Salle Principal"},
+                  {"name": "salle des coffres"},
+                  {"name": "salle du fond"},
+                  {"name": "bureau de pierre-yves"} ],
 
     "weapons": [{"name": "thermos"},
                 {"name": "robot"},
                 {"name": "cure-dent"},
-                {"name": "le sac étonnamment lourd de inna"}
+                {"name": "le sac étonnamment lourd de inna"},
+                {"name": "ordinateur"},
+                {"name": "manteau"},
+                {"name": "le livre de php"},
+                {"name": "ecouteur"},
+                {"name": "un paperboard"}
                 ]
 
 }
