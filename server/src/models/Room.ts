@@ -1,4 +1,5 @@
 import { Client } from './Client';
+import { Game } from '../socket/Game';
 
 import { } from '';
 
@@ -12,6 +13,7 @@ export class Room {
     private _name: string;
     private _ioRoom: any;
     private _clientsCount: number = 0;
+    private _game: Game;
 
     constructor(name: string) {
         this._name = name;
@@ -21,7 +23,6 @@ export class Room {
 
     public static initRoom(client: Client, name: string): Room {
         let room = Room.findRoom(name);
-
         return room = room ? room.joinRoom(client) : Room.createRoom(client, name);
     }
 
@@ -41,7 +42,6 @@ export class Room {
         let room = new Room(name);
         room.ioRoom = client.ioClient.join(name);
         room.clientsCount += 1;
-
         return room;
     }
 
@@ -126,4 +126,10 @@ export class Room {
         this._clientsCount = val;
     }
 
+    public get game(): Game{
+        return this._game;
+    }
+    public set game(val: Game){
+        this._game = val;
+    }
 }

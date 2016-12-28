@@ -41,13 +41,15 @@ export class SocketIoServer {
 
                 client = new Client(socket, username);
 
-                if (!this._game)
-                    this._game = new Game('dataTest.json', client);
-
                 // console.log("game : ", this._game);
                 let room = client.enterRoom(roomname);
 
-                client.ioClient.to(client.room.name).emit("playerJoin", {user: client.name})
+                client.ioClient.to(client.room.name).emit("playerJoin", {user: client.name});
+                console.log("client room: ",client.room.game);
+                if(!client.room.game){
+                    console.log("new game");
+                    client.room.game = new Game("dataTest.json");
+                }
 
                 // Register socket events for client
                 console.log("Now registering events...");
@@ -81,8 +83,7 @@ export class SocketIoServer {
                 });
 
                 socket.on('getData', function (data: any) {
-                    // console.log('oui?');
-                    this._game.sendData();
+                    client.room.game.sendData(client);
                 });
 
                 // With all that said and done, tell client to go to game page
